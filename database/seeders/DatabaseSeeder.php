@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\User;
-use FakerCommerce\Faker\FakerFactory;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -17,15 +18,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $fakerStore = FakerFactory::create();
 
+        //Let's start with one user first
         try {
             User::factory()->create([
                 'name' => 'Test User',
                 'email' => 'test@example.com',
             ]);
-        } catch (\Exception $e) {
-            // do nothing
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
 
         $categoryNames = [
@@ -39,64 +40,58 @@ class DatabaseSeeder extends Seeder
 
         foreach ($categoryNames as $categoryName) {
             try {
-                $categories[] = \App\Models\Category::factory()->create([
+                Category::factory()->create([
                     'name' => $categoryName,
                     'slug' => Str::slug($categoryName),
                     'description' => fake()->paragraph,
                 ]);
-            } catch (\Exception $e) {
-                // do nothing
+            } catch (Exception $e) {
+                dd($e->getMessage());
             }
         }
 
         $categories = Category::all()->pluck('id')->toArray();
 
-        foreach (range(1, 10) as $index) {
-            $name = $fakerStore->name();
+        foreach (range(1, 10) as $i) {
             try {
-                $product = Product::factory()->create([
-                    'name' => $name,
-                    'slug' => Str::slug($name),
-                    'brand' => fake()->domainWord(),
-                    'description' => fake()->paragraph(),
-                    'price' => fake()->randomFloat(2, 10, 1000),
-                    'sale_price' => fake()->boolean() ? fake()->randomFloat(2, 10, 1000) : null,
-                    'stock' => fake()->numberBetween(1, 100),
-                    'images' => $this->getRandomImages($name),
-                    'rating' => fake()->numberBetween(1, 5),
-                    'review_count' => fake()->numberBetween(1, 100),
-                    'sizes' => ['S', 'M', 'L', 'XL'],
-                    'colors' => $this->getRandomHexColors(fake()),
-                ]);
+                $product = Product::factory()->create();
 
                 $product->categories()->attach(
                     fake()->randomElements($categories, rand(1, count($categories)))
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 dd($e->getMessage());
             }
         }
-    }
 
-    function getRandomHexColors($faker, $min = 1, $max = 10):array {
-        $count = rand($min, $max);
-        $colors = [];
-
-        for ($i = 0; $i < $count; $i++) {
-            $colors[] = $faker->hexColor();
+        try {
+            ProductVariant::factory(50)->create();
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
 
-        return $colors;
     }
 
-    function getRandomImages($name, $min = 1, $max = 10):array {
-        $count = rand($min, $max);
-        $images = [];
 
-        for ($i = 0; $i < $count; $i++) {
-            $images[] = 'https://imageplaceholder.net/700x900?text='.Str::slug($name);
-        }
-
-        return $images;
-    }
+    /**
+     *  Seed the application's database.
+     * /
+     * public function run(): void
+     * {
+     * //First, we create the shopping cart that creates users since it is one to one
+     * ShoppingCart::factory(50)->create();
+     * //We create new users
+     * User::factory(100)->create();
+     * //Creating products table
+     * Product::factory(50)->create();
+     * //this one creates variants so we do it first
+     * CartItem::factory(100)->create();
+     * //add some more
+     * ProductVariant::factory(50)->create();
+     * //Create orders
+     * Order::factory(200)->create();
+     * //creating order items
+     * OrderItem::factory(300)->create();
+     * }
+     **/
 }

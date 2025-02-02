@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperProduct
+ */
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
@@ -17,22 +20,42 @@ class Product extends Model
         'description',
         'price',
         'sale_price',
-        'stock',
         'images',
         'rating',
         'review_count',
-        'sizes',
-        'colors',
+        "other_attributes"
     ];
 
+    /**
+     * Automatic casting for columns
+     * @var array
+     */
     protected $casts = [
-        'images' => 'array',
-        'sizes' => 'array',
-        'colors' => 'array',
+        'images' => 'array',  //this will have to be moved to variants but for now it can wait
+        'other_attributes' => 'array', // If you just want to automatically decode JSON
     ];
 
-    public function categories()
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * Mutator to convert other attributes to json
+     * @param mixed $value
+     * @return void
+     */
+    public function setOtherAttributesAttribute($value){
+        $this->attributes["other_attributes"] = json_encode($value);
+    }
+
+
+    /**
+     * Get product variants
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function variants(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductVariant::class);
     }
 }

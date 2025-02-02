@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <main class="flex-1">
+    <main class="flex-1 flex-col justify-items-center">
         <div class="py-16 box-border">
             <div class="wrapper hidden lg:flex justify-between items-center gap-4">
                 @foreach(collect(File::allFiles('images/brands'))->shuffle() as $image)

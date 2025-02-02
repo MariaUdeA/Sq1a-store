@@ -1,7 +1,7 @@
 <div class="wrapper space-y-10">
     <div class="space-y-2">
-        <h2 class="text-black font-black text-5xl text-center">
-            {{__('New arrivals')}}
+        <h2 class="text-black font-black text-5xl text-center font-roboto">
+            {{__('New Arrivals')}}
         </h2>
 
         <p class="text-pretty text-black text-center sm:max-w-lg mx-auto">

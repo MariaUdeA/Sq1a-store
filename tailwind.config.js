@@ -11,6 +11,13 @@ export default {
 
     theme: {
         extend: {
+            fontFamily: {
+                roboto: ['"Roboto"', "sans-serif"],
+                jost: ['"Jost"', "sans-serif"],
+                poppins: ['"Poppins"', "sans-serif"],
+                volkhov: ['"Volkhov"', "sans-serif"],
+                // Add more custom font families as needed
+            },
             colors: {
                 black: '#191919',
                 primary: '#ED1C24'
