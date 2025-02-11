@@ -1,20 +1,30 @@
-<div class="ub-bg  w-full flex flex-1 bg-stone-300 box-border">
-    <div class="ub-img w-full transition-all ease-in duration-300 box-border flex flex-1 flex-row max-w-7xl
-                justify-around content-start overflow-hidden gap-4 p-4">
-        <img class="block my-auto w-auto max-h-[1280px] aspect-[308/646]
-                    object-cover scale-y-100 -scale-x-100 box-border"
-             style="height: calc(0.7 * (100dvh - 111px));"
-             src="{{ asset('images/banners/banner_man.png') }}"
-             alt="{{__("Classy man on banner")}}"
-        />
+<div class="ub-bg w-full flex flex-1 bg-stone-300 box-border">
+    <div class="ub-img relative w-full sm:h-auto transition-all ease-in duration-300 box-border
+                sm:flex sm:flex-1 sm:flex-row max-w-7xl inline-block
+                justify-center content-start overflow-y-visible sm:gap-14 p-8"
+         style="height: calc(0.75* (100dvh - 111px));"
+    >
+        <div class="sm:w-auto w-full sm:h-auto top-0 sm:top-auto left-0 sm:left-auto
+                    max-h-[1280px] box-border absolute sm:static h-[calc(0.7*100dvh-111px)] md:h-auto"
+                    >
+            <img class="w-full h-full block my-auto opacity-75
+                        sm:opacity-100 sm:relative sm:w-auto aspect-auto
+                        object-contain object-center scale-y-100 -scale-x-100 box-border"
+                 src="{{ asset('images/banners/banner_man.png') }}"
+                 alt="{{__("Classy man on banner")}}"
+            />
+        </div>
 
-        <div class="img-text box-border my-auto w-auto flex flex-col items-start justify-center
-                    gap-16 text-pretty text-zinc-800 break-words font-roboto transition-all ease-in duration-300">
-            <p class="font-normal text-[2rem] text-left ">{{__("HOT DEALS THIS WEEK")}}</p>
-            <h1 class="font-bold text-5xl text-left text-[#A86A3D]">{{__("SALE UP 50%")}}<br>{{__("MODERN FURNITURE")}}</h1>
+        <div class="img-text relative box-border my-auto w-auto flex flex-col items-center sm:items-start
+                    sm:justify-center justify-around h-full
+                    gap-8 text-pretty text-zinc-800 break-words font-roboto transition-all ease-in duration-300 z-10">
+            <p class="font-normal text-lg sm:text-left text-center}
+            [text-shadow:_0_0_5px_rgb(255_255_255_/_1)] sm:[text-shadow:none]">{{__("HOT DEALS THIS WEEK")}}</p>
+            <h1 class="font-bold text-5xl sm:text-left text-center text-[#A86A3D]
+                       [text-shadow:_0_0_5px_rgb(255_255_255_/_1)] sm:[text-shadow:none]">{{__("SALE UP 50%")}}<br>{{__("MODERN FURNITURE")}}</h1>
             <x-secondary-button
-                class="font-[700] font-roboto text-3xl bg-transparent border-zinc-800 text-zinc-800
-                hover:text-red-600 hover:border-red-600 hover:bg-[transparent]">
+                class="font-[700] font-roboto bg-white sm:bg-transparent border-zinc-800 text-zinc-800
+                hover:text-red-600 hover:border-red-600 hover:bg-white hover:sm:bg-transparent">
                 {{__("View now")}}
             </x-secondary-button>
         </div>

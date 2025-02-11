@@ -8,7 +8,7 @@
                 </button>
                 <a href="{{route('home')}}">
                     <span class="sr-only">{{config('app.name')}}</span>
-                    <img src="{{asset('images/sq1-logo.svg')}}" alt="{{config('app.name')}}" width="120" height="37" />
+                    <img src="{{asset('images/sq1-logo.svg')}}" alt="{{__(config('app.name'))}}" width="120" height="37" />
                 </a>
             </div>
             <div class="w-fit xs:flex justify-end items-center gap-4 hidden">
@@ -22,7 +22,7 @@
         <div class="wrapper max-w-4xl flex justify-around items-center gap-4">
             @foreach(config('navigation') as $item)
                 <a href="" class="uppercase font-bold text-sm text-black hover:text-primary">
-                    {{$item['title']}}
+                    {{__($item['title'])}}
                 </a>
             @endforeach
         </div>
@@ -45,7 +45,7 @@
                     <nav class="flex flex-col">
                         @foreach(config('navigation') as $item)
                             <a href="" class="uppercase font-bold text-sm text-black hover:text-primary border-b px-6 py-4 hover:bg-neutral-100">
-                                {{$item['title']}}
+                                {{__($item['title'])}}
                             </a>
                         @endforeach
                     </nav>

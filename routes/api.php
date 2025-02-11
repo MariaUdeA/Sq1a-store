@@ -8,14 +8,14 @@ use App\Http\Controllers\API\ShoppingCartController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\OrderController;
 
-Route::prefix('v1')->group(function(){
     //User Register Route
-    Route::post('/register', [AuthController::class,'register']);
-    Route::post('/login', [AuthController::class,'login']);
+
+//    Route::post('/register', [AuthController::class,'register']);
+//    Route::post('/login', [AuthController::class,'login']);
 
     // These two must be protected, since there must be a register or login first
-    Route::middleware('auth:sanctum')->get('/profile', [AuthController::class,'profile']);
-    Route::middleware('auth:sanctum')->post('/logout', [AuthController::class,'logout']);
+//    Route::middleware('auth:sanctum')->get('/profile', [AuthController::class,'profile']);
+//    Route::middleware('auth:sanctum')->post('/logout', [AuthController::class,'logout']);
 
     //Shopping Cart Route
     Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
@@ -42,6 +42,4 @@ Route::prefix('v1')->group(function(){
         Route::post('/create',[OrderController::class,'store']);
     });
 
-
-});
 

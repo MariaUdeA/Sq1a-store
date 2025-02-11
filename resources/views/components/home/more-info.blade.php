@@ -1,23 +1,23 @@
 <x-home.more-info-item
     :ImgUrl="asset('images/icons/high_quality.png')"
-    :alt="'High quality Symbol'"
-    :h3="'High Quality'"
-    :p="'Crafted from top materials'" />
+    alt="{{__('High quality Symbol')}}"
+    h3="{{__('High Quality')}}"
+    p="{{__('Crafted from top materials')}}" />
 
 <x-home.more-info-item
     :ImgUrl="asset('images/icons/warranty.png')"
-    :alt="'Warranty Symbol'"
-    :h3="'Warranty Protection'"
-    :p="'Over 2 years'" />
+    alt="{{__('Warranty Symbol')}}"
+    h3="{{__('Warranty Protection')}}"
+    p="{{__('Over 2 years')}}" />
 
 <x-home.more-info-item
     :ImgUrl="asset('images/icons/shipping.png')"
-    :alt="'Shipping Symbol'"
-    :h3="'Free Shipping'"
-    :p="'Order over 150'" />
+    alt="{{__('Shipping Symbol')}}"
+    h3="{{__('Free Shipping')}}"
+    p="{{__('Order over 150')}}" />
 
 <x-home.more-info-item
     :ImgUrl="asset('images/icons/call.png')"
-    :alt="'Support Symbol'"
-    :h3="'24 / 7 Support'"
-    :p="'Dedicated support'" />
+    alt="{{__('Support Symbol')}}"
+    h3="{{__('24 / 7 Support')}}"
+    p="{{__('Dedicated support')}}" />

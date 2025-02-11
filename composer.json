@@ -18,6 +18,7 @@
         "matusstafura/faker-commerce": "^0.1.0"
     },
     "require-dev": {
+        "amirami/localizator": "^0.13.0@alpha",
         "barryvdh/laravel-ide-helper": "^3.5",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.3",
@@ -75,6 +76,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

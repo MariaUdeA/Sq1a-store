@@ -16,9 +16,6 @@ Also, if needed, this is to create random test SQLite dataset.
 ```
 php artisan migrate:fresh --seed
 
-//integrate language thing? maybe needeed?
-php artisan lang:publish
-
 ```
 
 To create the server on which the page will run and run the Javascript and Laravel parts:

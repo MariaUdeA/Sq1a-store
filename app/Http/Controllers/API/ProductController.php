@@ -23,6 +23,7 @@ class ProductController extends Controller
      * Get all products
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
+     *
      */
     public function index(Request $request){
         try{
