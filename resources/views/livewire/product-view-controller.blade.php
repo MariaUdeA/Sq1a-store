@@ -60,13 +60,26 @@
                 <h3 class="title-text">Quantity</h3>
 
 
-                <div class="more-and-cart-buttons">
+                <div class="more-and-cart-buttons w-full box-border flex flex-row flex-wrap justify-around items-center
+                            gap-5">
                     <div class="more-item-button">
                         <button>-</button>
                         <input type="numeric" placeholder="01" maxlength="2">
                         <button>+</button>
                     </div>
-                    <button class="add-to-cart-button">Add to Cart</button>
+                    <button class="add-to-cart-button flex-grow block text-black border-[1px] border-solid
+                                    border-black no-underline cursor-pointer font-volkhov
+                                    font-normal text-base p-3 rounded-[5px] ">Add to Cart</button>
+                    {{--
+
+
+.add-to-cart-button:hover{
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+                    --}}
                 </div>
             </div>
         </div>
