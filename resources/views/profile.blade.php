@@ -1,10 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
+    {{--<x-slot name="header-profile">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
         </h2>
-    </x-slot>
-    <main class="flex-1 flex-col justify-items-center">
+    </x-slot>--}}
+    <div class="flex-1 flex-col justify-items-center">
         <div class="w-full py-12 px-4 sm:px-6 lg:px-8 max-w-7xl">
             <h2 class="text-black font-normal text-3xl md:text-5xl text-left font-volkhov md:py-8 py-6">
                 {{__('Login to your account')}}
@@ -29,5 +29,5 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </x-app-layout>

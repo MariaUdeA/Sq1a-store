@@ -15,62 +15,45 @@ the project, a `php artisan key:generate` will create the respective app key.
 Also, if needed, this is to create random test SQLite dataset.
 ```
 php artisan migrate:fresh --seed
-
 ```
 
-To create the server on which the page will run and run the Javascript and Laravel parts:
+To create the server on which the page will run and render everything else:
 ```
 php artisan serve
 npm run dev
 ```
 
-You can also use Herd to open this project, entering `sq1a-store.test` on a browser with Herd open.
+You can also use Herd to open this project, entering `Sq1a-store.test` on a browser with Herd open.
 
 To run the tests in this same project using the memory and not the seeded database:
 ```
 php artisan test
 ```
 
-## Additional APIs
+## External APIs
 The [Color API](https://www.thecolorapi.com) will be used to get color names from hex.
 Or [PalettesPro](https://palettespro.com/), since it has a smaller output.
 
-## Relationships
-These were the relationships chosen:
-- A user can only have one shopping cart, therefore it uses a one-to-one relationship.
-- A shopping cart can have multiple cart items so it is a one-to-many relationship.
-- A user can have multiple orders (one-to-many), which in kind can have multiple order items (one-to-many).
-- A product can have many variants (size, colour, etc.) so it is a one-to-many relationship.
-- A cart item can only have one variant associated therefore there is a one-to-one relationship.
-- A variant can have multiple orders items associated so it is one to many.
+## Functionalities done per page
+There is a test user with an email `test@example.com` and password `password`, for testing purposes.
 
-## Endpoint Explanation
-In general, for most, if not all, of these there is a try-catch exception for generic problems, this returns the code 500.
-If any of these are GET methods, they usually have a 404 return if there are none of the object.
-If it is successful, and it creates a model, it returns a 201, otherwise, if it is successfull, 200 is returned (it can be an update or a normal get).
+### Header
+- The SQ1 logo redirects to the home page.
+- The search products redirects to the store filtering by product name.
+- The profile icon redirects to login when logged out, otherwise, it goes to a menu to log out or see your profile (last one not supported).
+- If there were a shopping cart modal, the bag icon would open it, for now it is inactive.
 
-### Users
-- **POST /register:** create a new user, by validating the input data and checking if the email already exists. If the data can't be validated, a 422 error message is returned.
-- **POST /login:** authenticate and return access token by validating the input data. If the data can't be validated, a 422 error message is returned, if the user doesn't exist or the password doesn't match the password we return a 401.
-- **GET /profile:** get authenticated user's information, must be logged in, if there is a problem with the token, it returns a 401.
-- **POST /logout:** logout from the authenticated user's session, must be logged in first, if there is a issue with the token, it returns a 401.
+### Home page
+- The view now button and the shop now button should redirect to the store page with the discounts category selected.
+- The products should redirect to the respective product page.
+- The view more button redirect to the store with the selected category active.
+- The brand marquee should be working without reloading on all reasonable sizes of screen.
 
-### Shopping Cart
-All of these require a user to be logged in. The sanctum middleware is used.
-- **GET /cart:** See the content of the shopping cart of a logged in user.
-- **POST /cart/add:** Add a product or variant to the shopping cart.
-- **PUT /cart/update/{CartItemID}:** update the quantity of a product in the shopping cart.
-- **DELETE /cart/remove/{CartItemID}:** delete a product from the shopping cart returns no content if succeds.
+### Shop page
+- Filtering should be fully functional by the categories shown, and they should be able to be reset.
+- Column number selection should be functional and shouldn't allow a big number of columns on 
+- The products, when clicked on the image or title, should redirect to the selected variant.
 
-### Products and variants
-- **GET /products:** shows all available products with their variants.
-- **GET /products/{ProductID}:** get details from a specific product.
-- **GET /products/search:** this searches for product according to name (/products/search?name=value), color (/products/search?color=value), size(/products/search?size=value), brand (/products/search?attributes=brand&value=value), collection (/products/search?attributes=collection&value=value), min and max price (/products/search?min_price=value&max_price=value2), and gender (/products/search?attributes=gender&value=value).
-  Other endpoints like update and destroy were modified to allow variants, and are on the route in case they are needed.
-
-### Orders
-Again, all of these endpoints require a user to be logged in. The sanctum middleware is used.
-
-- **POST /orders/create:** create an order with the current shopping cart, if there is no cart, we return a 404, a 400 if there are no items.
-- **GET /orders:** this shows all the user's orders.
-- **GET /orders/{OrderID}:** obtain the details of a specific order.
+### Product Page
+- Show stock (if it is less than 21), color and size of the selected variant, using the color as index for showing sizes and avoid nonexistent variants.
+- If there is a click on the mini images, they should display in the main image.

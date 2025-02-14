@@ -46,5 +46,5 @@
         @endforeach
     </div>
 
-    <x-secondary-button>{{__("View More")}}</x-secondary-button>
+    <a href="{{ route('store',['category' => $selectedCategory->name]) }}"><x-secondary-button>{{__("View More")}}</x-secondary-button></a>
 </div>

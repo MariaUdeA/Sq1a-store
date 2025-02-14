@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'bg-white border rounded-md p-4 py-5 box-border hover:shadow transition flex flex-col']) }}>
-    <a href="" class="w-full aspect-square bg-neutral-800 block rounded-md">
+    <a href="{{ route('product',['id' => $product->variants[0]->id]) }}" class="w-full aspect-square bg-neutral-800 block rounded-md">
         <img src="{{ $product->images[0] }}" alt="{{ $product->name }}" class="object-cover w-full h-full rounded-md aspect-square">
     </a>
     <a href="" class="block mt-2 flex-1">

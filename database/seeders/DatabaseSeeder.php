@@ -49,12 +49,53 @@ class DatabaseSeeder extends Seeder
                 dd($e->getMessage());
             }
         }
-
         $categories = Category::all()->pluck('id')->toArray();
 
-        foreach (range(1, 10) as $i) {
+        //Special product
+        try {// Let's create a special product
+            $test_prod = Product::create([
+                'name' => 'Wool and Cashemere Top',
+                'slug' => Str::slug('Sweater'),
+                'brand' => 'Gucci',
+                'description' => 'Wool and Cashmere Top',
+                'price' => 2030,
+                'sale_price' => 1600,
+                'real_price' => 2000,
+                'sale_date' => now()->addHours(2),
+                'images' => [
+                    asset('images/test-product/cashmere3.avif'),
+                    asset('images/test-product/cashmere2.avif'),
+                    asset('images/test-product/cashmere1.jpg'),
+                    asset('images/test-product/cashmere4.avif'),
+                    asset('images/test-product/cashmere5.avif'),
+                    asset('images/test-product/cashmere6.webp'),
+                    asset('images/test-product/cashmere7.avif'),],
+                'rating' => 5,
+                'review_count' => 7,
+                'other_attributes' => null
+            ]);
+            foreach (['#FF6C6C', '#FF7629', '#FFF06C'] as $color) {
+                foreach (['XS', 'S', 'M', 'L', 'XL'] as $size) {
+                    ProductVariant::create([
+                            'product_id' => $test_prod->id,
+                            'color' => $color,
+                            "size" => $size,
+                            "stock_quantity" => fake()->numberBetween(0, 4),
+                        ]
+                    );
+                }
+            }
+            $test_prod->categories()->attach(
+                fake()->randomElements($categories, rand(1, count($categories)))
+            );
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+
+        //General product creation
+        foreach (range(1, 24) as $i) {
             try {
-                $product = Product::factory()->create();
+                $product = Product::factory()->withVariants(4)->create();
 
                 $product->categories()->attach(
                     fake()->randomElements($categories, rand(1, count($categories)))
@@ -64,11 +105,6 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        try {
-            ProductVariant::factory(50)->create();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
 
     }
 

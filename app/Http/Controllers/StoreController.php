@@ -10,26 +10,42 @@ use Illuminate\Support\Facades\Route;
 
 class StoreController extends Controller
 {
-
-    public function __invoke():View
+    public function __invoke(Request $request):View
     {
-        // Fetch products from the API
-        $request=Request::create('/api/products','GET');
-        //This is for auth stuff, keeping it here just in case
-        //$request->headers->set('Authorization','Bearer'.'your_user_token');
+        $size  = null;
+        $price = null;
+        $brand = null;
+        $category = null;
+        $color = null;
+        $name = null;
 
-        $response = Route::dispatch($request);
-        $response_body=json_decode($response->getContent(),true);
-
-        if ($response->isSuccessful()) {
-            $products = $response_body['data'];
-            //dd($products);
-        } else {
-            // Handle the error (e.g., show a message if the API fails)
-            $products = [];
+        if($request->has("price")) {
+            $price=$request->input('price');
         }
+        if($request->has("size")) {
+            $size=$request->input('size');
+        }
+        if($request->has("brand")) {
+            $brand=$request->input('brand');
+        }
+        if($request->has("category")) {
+            $category=$request->input('category');
+        }
+        if($request->has("color")) {
+            $color=$request->input('color');
+        }
+
+        if($request->has("name")) {
+            $name=$request->input('name');
+        }
+
         return view('pages.store', [
-            'categories' => $products
+            'size' => $size,
+            'price' => $price,
+            'brand' => $brand,
+            'category' => $category,
+            'color' => $color,
+            'name' => $name,
         ]);
     }
 }

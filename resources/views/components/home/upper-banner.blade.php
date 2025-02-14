@@ -1,3 +1,5 @@
+
+
 <div class="ub-bg w-full flex flex-1 bg-stone-300 box-border">
     <div class="ub-img relative w-full sm:h-auto transition-all ease-in duration-300 box-border
                 sm:flex sm:flex-1 sm:flex-row max-w-7xl inline-block
@@ -22,11 +24,12 @@
             [text-shadow:_0_0_5px_rgb(255_255_255_/_1)] sm:[text-shadow:none]">{{__("HOT DEALS THIS WEEK")}}</p>
             <h1 class="font-bold text-5xl sm:text-left text-center text-[#A86A3D]
                        [text-shadow:_0_0_5px_rgb(255_255_255_/_1)] sm:[text-shadow:none]">{{__("SALE UP 50%")}}<br>{{__("MODERN FURNITURE")}}</h1>
-            <x-secondary-button
+            <a href="{{ route('store',['category' => 'discounts']) }}"><x-secondary-button
                 class="font-[700] font-roboto bg-white sm:bg-transparent border-zinc-800 text-zinc-800
-                hover:text-red-600 hover:border-red-600 hover:bg-white hover:sm:bg-transparent">
+                hover:text-red-600 hover:border-red-600 hover:bg-white hover:sm:bg-transparent"
+                >
                 {{__("View now")}}
-            </x-secondary-button>
+            </x-secondary-button></a>
         </div>
     </div>
 </div>

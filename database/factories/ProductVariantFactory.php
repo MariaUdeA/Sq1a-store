@@ -19,7 +19,7 @@ class ProductVariantFactory extends Factory
     {
         $productIds = Product::all()->pluck("id")->toArray();
         return [
-            'product_id' => $this->faker->randomElement($productIds), //because it is one to many, no issue repeating
+            'product_id' => Product::factory(), // Each variant belongs to a product
             'color' => fake()->hexColor(),
             'size' => $this->faker->randomElement(['XS', 'S', 'M', 'L', 'XL']),
             'stock_quantity' => $this->faker->numberBetween(1, 100),

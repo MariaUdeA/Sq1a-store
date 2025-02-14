@@ -11,9 +11,10 @@
         {{__("Get ready for sunny days with our Summer Sale!
               Enjoy up to 50% off on all your favorite styles — from breezy dresses to comfy tees and everything in between.
               Shop now and make this summer your best-dressed season yet!")}}</p>
-    <a href="#" class="z-20 relative">
+    <a href="{{ route('store',['category' => 'discounts']) }}" class="z-20 relative">
         <x-secondary-button class="lower-banner_button hover:shadow-lg hover:shadow-black hover:bg-white">
             {{__("Shop Now")}}
-        </x-secondary-button></a>
+        </x-secondary-button>
+    </a>
 
 </div>

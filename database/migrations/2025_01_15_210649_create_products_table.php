@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('sale_price', 10, 2)->nullable();
+            $table->decimal('real_price', 10, 2)->nullable();
+            $table->dateTime('sale_date')->nullable();
 
             // We are going to leave this general for simplicity
             $table->json('images')->nullable();

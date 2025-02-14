@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,8 @@ class Product extends Model
         'description',
         'price',
         'sale_price',
+        'real_price',
+        'sale_date',
         'images',
         'rating',
         'review_count',
@@ -38,6 +41,27 @@ class Product extends Model
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+
+    protected $appends = ['sizes','colors'];
+
+    public function getSizesAttribute()
+    {
+        return $this->variants()
+            ->pluck('size')
+            ->unique()
+            ->values()
+            ->toArray();
+    }
+
+    public function getColorsAttribute()
+    {
+        return $this->variants()
+            ->pluck('color')
+            ->unique()
+            ->values()
+            ->toArray();
     }
 
     /**

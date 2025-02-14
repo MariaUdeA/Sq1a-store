@@ -1,4 +1,6 @@
-<div {{$attributes}} x-cloak x-data="{ open: false }" @keydown.escape="open = false" class="relative flex">
+<div {{$attributes}} x-cloak x-data="{ open: false}"
+
+     @keydown.escape="open = false" class="relative flex">
     <button x-on:click="open = !open" type="button" x-show="!open" class="group hover:border-black border border-transparent rounded p-1.5 box-border hover:bg-neutral-100 transition-all">
         <x-header.svg-search class="size-6 text-black hover:text-primary" />
     </button>
@@ -7,14 +9,14 @@
         <button x-show="open" x-transition x-on:click="open = false" type="button" class="size-9 group hover:border-black border border-transparent rounded px-1.5 box-border hover:bg-neutral-100 transition-all">
             <x-modals.svg-x-mark class="size-5 text-black group-hover:text-primary m-auto" />
         </button>
-        <form>
+        <form action="{{ route('store')}}">
             <div>
                 <x-form.input-label for="search" class="sr-only">{{__('Search')}}</x-form.input-label>
                 <x-form.input
                     class="block mt-1 w-full"
                     id="search"
                     type="search"
-                    name="search"
+                    name="name"
                     required
                     autofocus
                     autocomplete="search"

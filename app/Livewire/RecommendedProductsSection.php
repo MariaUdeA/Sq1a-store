@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -12,6 +13,7 @@ class RecommendedProductsSection extends Component
     public Collection $products;
     public Collection $categories;
     public Category $selectedCategory;
+
 
     public function mount():void
     {

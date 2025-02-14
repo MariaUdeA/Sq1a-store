@@ -21,7 +21,7 @@
     <nav class="bg-neutral-100 w-full py-2 box-border border-y hidden md:block">
         <div class="wrapper max-w-4xl flex justify-around items-center gap-4">
             @foreach(config('navigation') as $item)
-                <a href="" class="uppercase font-bold text-sm text-black hover:text-primary">
+                <a href="{{route($item['route'],$item['query'])}}" class="uppercase font-bold text-sm text-black hover:text-primary">
                     {{__($item['title'])}}
                 </a>
             @endforeach
@@ -44,7 +44,7 @@
                 <div class="px-4 pt-5 pb-4 flex-1">
                     <nav class="flex flex-col">
                         @foreach(config('navigation') as $item)
-                            <a href="" class="uppercase font-bold text-sm text-black hover:text-primary border-b px-6 py-4 hover:bg-neutral-100">
+                            <a href="{{route($item['route'],$item['query'])}}" class="uppercase font-bold text-sm text-black hover:text-primary border-b px-6 py-4 hover:bg-neutral-100">
                                 {{__($item['title'])}}
                             </a>
                         @endforeach

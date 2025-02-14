@@ -27,7 +27,7 @@
     <x-header.header/>
     {{ $slot }}
     <x-footer.footer/>
-    <aside id="aside-modal"></aside>
+    <aside id="aside-modal"/>
     @livewireScripts
 </body>
 </html>

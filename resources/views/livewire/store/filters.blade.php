@@ -1,56 +1,154 @@
-<section class="filters w-3/12 box-border flex flex-col flex-nowrap gap-4 p-4 pt-10 font-volkhov font-normal text-black"
-         x-data="{ reportsOpen1: false ,reportsOpen2: false}">
+@php
+    function singleQuote($inputString) {
+        // Replace all single quotes with a backslash before them
+        return str_replace("'", "\\'", $inputString);
+    }
 
-    <h2 class="filter-title text-3xl mb-6">{{__("Filters")}}</h2>
+    // If there is a brand or category selected, these filters will expand
+    $initial_state1= (bool)$brandSelected;
+    $initial_state2= (bool)$selectedCategory;
 
-    <h3 class="text-lg">{{__("Size")}}</h3>
 
-    <div class="filter-options filter-buttons-size w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2">
-        @foreach(["XS","S","M","L","XL"] as $size)
-            <x-store.size-button class="size-buttons">{{$size}}</x-store.size-button>
-        @endforeach
+
+@endphp
+
+<section class="filters w-full md:w-3/12 box-border flex flex-col flex-nowrap gap-4 md:p-4 p-6 pt-10 font-volkhov font-normal text-black
+                items-start"
+         x-data="{ reportsOpen1: '{{$initial_state1}}' ,reportsOpen2: '{{$initial_state2}}', filterOpen: window.innerWidth > 768 }"
+         x-init="window.addEventListener('resize', () => filterOpen = window.innerWidth > 768)"
+         >
+
+    <div class="hidden md:flex w-full flex-row justify-between flex-wrap items-end gap-1 py-6">
+        <h2 class="filter-title text-3xl">{{__("Filters")}}</h2>
+        <button wire:click="clearFilters()" class="text-base text- black font-jost underline hover:text-primary">{{__('Clear Filters')}}</button>
     </div>
 
-    <h3 class="text-lg">{{__("Colors")}}</h3>
-    <div class="filter-options filter-buttons-colors w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2">
-        @foreach(["#FF6C6C","#FF7629","#FFF06C","#9BFF6C","#6CFF9E","#6CFFDC","#6CB9FF",
-                  "#6CF6FF","#6CA7FF","#6C7BFF","#8A6CFF","#B66CFF","#FC6CFF","#FF6C6C"] as $color)
-            <x-product.color-button class="product-color" style="background-color: {{$color}};"></x-product.color-button>
-        @endforeach
+    <div class="w-full md:hidden flex items-center justify-center">
+        <x-store.collapsible @click="filterOpen = !filterOpen"
+                             :class="'text-[30px] md:hidden'"
+                             x-bind:class="filterOpen ? 'after:content-arrowUpIcon' : 'after:content-arrowDownIcon'">
+            {{ __("Filters") }}
+        </x-store.collapsible>
     </div>
 
-    <h3 class="text-lg">Prices</h3>
-    <div class="filter-options filter-buttons-prices w-full flex flex-col flex-nowrap items-start justify-start gap-2 mb-2">
-        <x-store.letter-button class="letter-buttons">$0-$50</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">$50-$100</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">$100-$150</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">$150-$200</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">$200-$250</x-store.letter-button>
-    </div>
+    <div class="box-border w-full flex flex-col flex-nowrap gap-4 font-volkhov font-normal text-black"
+    x-cloak x-show="filterOpen" x-collapse x-collapse.duration.300ms>
+        <button wire:click="clearFilters()" class="md:hidden text-base text- black font-jost underline hover:text-primary">{{__('Clear Filters')}}</button>
 
-    <x-store.collapsible @click="reportsOpen1 = !reportsOpen1" class="header-button-collapsible"
-                         x-bind:class="reportsOpen1 ? 'after:content-arrowUpIcon' : 'after:content-arrowDownIcon'">
-        {{__("Brands")}}</x-store.collapsible>
-    <div class="filter-options filter-buttons-brand  w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2"
-         x-cloak x-show="reportsOpen1" x-collapse x-collapse.duration.300ms>
-        <x-store.letter-button class="letter-buttons">Minimog</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Retrolie</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Brook</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Learts</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Vagabond</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Abby</x-store.letter-button>
-    </div>
+        <h3 class="text-lg">{{__("Size")}}</h3>
+        {{--Change size--}}
+        <div
+            class="filter-options filter-buttons-size w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2">
+            @foreach(["XS","S","M","L","XL"] as $size)
+                <x-store.size-button wire:click="changeFilter('{{$size}}')"
+                    @class([
+                        'text-neutral-400 hover:text-black' => $sizeSelected !== $size,
+                        'text-black border-black' => $sizeSelected === $size,
+                        ]) >{{$size}}</x-store.size-button>
+            @endforeach
+        </div>
 
-    <x-store.collapsible @click="reportsOpen2 = !reportsOpen2"
-                         class="header-button-collapsible"
-                         x-bind:class="reportsOpen2 ? 'after:content-arrowUpIcon' : 'after:content-arrowDownIcon'">
-        {{ __("Collections") }}
-    </x-store.collapsible>
-    <div class="filter-options filter-buttons-collections  w-full flex flex-col flex-nowrap items-start justify-start gap-2 mb-2"
-         x-cloak x-show="reportsOpen2" x-collapse x-collapse.duration.300ms >
-        <x-store.letter-button class="letter-buttons">All products</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Best Sellers</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">New Arrivals</x-store.letter-button>
-        <x-store.letter-button class="letter-buttons">Accessories</x-store.letter-button>
+        {{--Color Selection!!--}}
+        <h3 class="text-lg">{{__("Colors")}}</h3>
+        <div
+            class="filter-options filter-buttons-colors w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2">
+            @isset($colorCounts)
+                @foreach($colorCounts as $color => $count)
+                    <x-product.color-button style="background-color: {{$color}};"
+                                            x-bind:x-init="selected = '{{$color}}' == '{{$colorSelected}}' ? true : false "
+                                            wire:click="changeFilter(null,null,null,'{{$color}}')"
+                    />
+                @endforeach
+            @endisset
+        </div>
+
+        <h3 class="text-lg">Prices</h3>
+
+        {{--Change price--}}
+        <div
+            class="filter-options filter-buttons-prices w-full flex flex-col flex-nowrap items-start justify-start gap-2 mb-2">
+            <x-store.letter-button wire:click="changeFilter(null,[0,50])"
+                @class([
+                    'text-neutral-400 hover:text-black' => $priceSelected !== ["0","50"],
+                    'text-black' => $priceSelected === ["0","50"],
+                       ])>$0-$50
+            </x-store.letter-button>
+            <x-store.letter-button wire:click="changeFilter(null,[50,100])"
+                @class([
+                       'text-neutral-400 hover:text-black' => $priceSelected !== ["50","100"],
+                       'text-black' => $priceSelected === ["50","100"],
+                        ])>$50-$100
+            </x-store.letter-button>
+            <x-store.letter-button wire:click="changeFilter(null,[100,150])"
+                @class([
+                           'text-neutral-400 hover:text-black' => $priceSelected !== ["100","150"],
+                           'text-black' => $priceSelected === [100,150],
+                            ])>$100-$150
+            </x-store.letter-button>
+            <x-store.letter-button wire:click="changeFilter(null,[150,200])"
+                @class([
+                                       'text-neutral-400 hover:text-black' => $priceSelected !== ["150","200"],
+                                       'text-black' => $priceSelected === [150,200],
+                                        ])>$150-$200
+            </x-store.letter-button>
+
+            <x-store.letter-button wire:click="changeFilter(null,[200,250])"
+                @class([
+                       'text-neutral-400 hover:text-black' => $priceSelected !== ["200","250"],
+                       'text-black' => $priceSelected === ["200","250"],
+                        ])>$200-$250
+            </x-store.letter-button>
+
+            <x-store.letter-button wire:click="changeFilter(null,[250,null])"
+                @class([
+     'text-neutral-400 hover:text-black' => $priceSelected !== ["250"],
+     'text-black' => $priceSelected === ["250"],
+     ])>$250-
+            </x-store.letter-button>
+
+        </div>
+
+        {{--Brand selection--}}
+        <x-store.collapsible @click="reportsOpen1 = !reportsOpen1" class="header-button-collapsible"
+                             x-bind:class="reportsOpen1 ? 'after:content-arrowUpIcon' : 'after:content-arrowDownIcon'">
+            {{__("Brands")}}</x-store.collapsible>
+        <div
+            class="filter-options filter-buttons-brand  w-full flex flex-row flex-wrap items-start justify-start gap-2 mb-2"
+            x-cloak x-show="reportsOpen1" x-collapse x-collapse.duration.300ms>
+            @isset($brandCounts)
+                @foreach($brandCounts as $brand => $count)
+                    <x-store.letter-button wire:click="changeFilter(null,null,'{{$brand}}')" @class([
+                    'capitalize text-neutral-400 hover:text-black' => $brandSelected !== $brand,
+                    'capitalize text-black' => $brandSelected === $brand,
+               ])>
+                        {{$brand}}</x-store.letter-button>
+                @endforeach
+            @endisset
+        </div>
+
+        {{--Categories Selection--}}
+        <x-store.collapsible @click="reportsOpen2 = !reportsOpen2"
+                             class="header-button-collapsible"
+                             x-bind:class="reportsOpen2 ? 'after:content-arrowUpIcon' : 'after:content-arrowDownIcon'">
+            {{ __("Collections") }}
+        </x-store.collapsible>
+
+        <div
+            class="filter-options filter-buttons-collections  w-full flex flex-col flex-nowrap items-start justify-start gap-2 mb-2"
+            x-cloak x-show="reportsOpen2" x-collapse x-collapse.duration.300ms>
+            @isset($categories)
+                @foreach($categories as $category)
+                    <x-store.letter-button
+                        wire:click="changeFilter(null,null,null,null,'{{singleQuote($category->name)}}')" @class([
+                    'capitalize text-neutral-400 hover:text-black text-left' => $selectedCategory !== $category->name,
+                    'capitalize text-black text-left' => $selectedCategory === $category->name,
+                ])>{{$category->name}}</x-store.letter-button>
+                @endforeach
+            @endisset
+        </div>
     </div>
 </section>
+
+<script>
+    isWideScreen: window.innerWidth > 768;
+</script>

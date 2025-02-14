@@ -3,30 +3,37 @@
 return [
     [
         'title' => 'women',
-        'route' => ''
+        'route' => 'store',
+        'query' => "category=women"
     ],
     [
         'title' => 'men',
-        'route' => ''
+        'route' => 'store',
+        'query' => "category=men"
     ],
     [
         'title' => 'kids',
-        'route' => ''
+        'route' => 'store',
+        'query' => "category=kids"
     ],
     [
         'title' => 'accessories',
-        'route' => ''
+        'route' => 'store',
+        'query' => "category=accessories"
     ],
     [
         'title' => 'about us',
-        'route' => ''
+        'route' => 'home',
+        'query' => ''
     ],
     [
         'title' => 'news',
-        'route' => ''
+        'route' => 'home',
+        'query' => ''
     ],
     [
         'title' => 'contact us',
-        'route' => ''
+        'route' => 'home',
+        'query' => ''
     ],
 ];

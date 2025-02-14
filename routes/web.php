@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 
-route::get('/',\App\Http\Controllers\HomeController::class)->name('home');
-route::get('/store',\App\Http\Controllers\StoreController::class)->name('store');
+Route::get('/',\App\Http\Controllers\HomeController::class)->name('home');
+Route::get('/store',\App\Http\Controllers\StoreController::class)->name('store');
+Route::get('/product/{id}',\App\Http\Controllers\ProductView::class)->name('product');
 
 //
 //$routes = function() {
@@ -20,13 +21,12 @@ route::get('/store',\App\Http\Controllers\StoreController::class)->name('store')
 //    ->prefix('{locale?}')->wherein('locale', array_keys(config('app.available_locales')))
 //    ->group($routes);
 
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
 
 require __DIR__.'/auth.php';
