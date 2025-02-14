@@ -71,22 +71,9 @@
             </div>
         </div>
     </section>
-    <section class="information-product">
-        <div class="more-info-buttons">
-            <button class="compare-btn info-btn">Compare</button>
-            <button class="question-btn info-btn">Ask a Question</button>
-            <button class="share-btn info-btn">Share</button>
-        </div>
-        <div class="delivery-time">
-            <span class="delivery-time-text title-text">Estimated delivery: </span>
-            <span class="delivery-time-dates">Jul 30 - Aug 03</span>
-        </div>
-
-        <p class="Shipping-info title-text"><b>Free Shipping & Returns:</b> On all orders over $75</p>
-
-        <img class="payment-methods" src="{{asset('images/payment-methods.png')}}"/>
-
-        <p class="guaranteed-checkout title-text">Guarantee safe & secure checkout</p>
+    <section class="information-product w-full self-end box-border flex flex-col flex-nowrap justify-center items-start py-14
+                    px-10 gap-6 md:w-[40%]">
+        <x-product.lower-prod/>
     </section>
 
     {{--

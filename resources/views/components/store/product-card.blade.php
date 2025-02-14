@@ -46,17 +46,17 @@
             </div>
 
             {{--THIS IS HERE FOR DEBUGGING REASONS, FEEL FREE TO UNCOMMENT IT IN CASE OF TESTING--}}
-            <div class="flex flex-row justify-start gap-1">
-                @foreach($product->sizes as $size)
-                    <div>{{$size}}</div>
-                @endforeach
-            </div>
-            <div>{{$product->brand}}</div>
-            <div class="flex flex-row flex-wrap">
-                @foreach($product->categories as $cat)
-                    <div>{{$cat->name}}</div>
-                @endforeach
-            </div>
+{{--            <div class="flex flex-row justify-start gap-1">--}}
+{{--                @foreach($product->sizes as $size)--}}
+{{--                    <div>{{$size}}</div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--            <div>{{$product->brand}}</div>--}}
+{{--            <div class="flex flex-row flex-wrap">--}}
+{{--                @foreach($product->categories as $cat)--}}
+{{--                    <div>{{$cat->name}}</div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
 
         @endisset
     </div>
